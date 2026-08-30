@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.socket.io/4.8.3/socket.io.min.js" integrity="sha384-kzavj5fiMwLKzzD1f8S7TeoVIEi7uKHvbTA3ueZkrzYq75pNQUiUi6Dy98Q3fxb0" crossorigin="anonymous"></script>
+
+</head>
+<body>
+    <div class="div-output">
+        <p>Mediciones en tiempo real</p>
+        <div class="div-measurements">
+            <p>Valor del sensor: <span id="dato-sensor">Esperando datos...</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Nos conectamos al servidor de Flask
+        const socket = io("http://127.0.0.1:5000"); 
+
+        socket.on('connect', function() {
+            console.log("¡Conectado exitosamente al servidor Flask!");
+        });
+    
+        socket.on('actualizar_sensor', function(data) {
+            console.log("Dato recibido:", data);
+            document.getElementById('dato-sensor').innerText = data.valor;
+        });
+    </script>
+</body>
+</html>
