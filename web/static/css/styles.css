@@ -11,6 +11,7 @@ body{
     display: flex;
     padding: 1rem;
     font-size: 1em;
+    flex-direction: column;
 }
 
 .div-output{
